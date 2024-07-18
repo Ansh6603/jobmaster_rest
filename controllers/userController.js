@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const CryptoJS = require('crypto-js');
 
 module.exports = {
@@ -8,9 +7,9 @@ module.exports = {
         }
         try {
             const updatedUser = await User.findByIdAndUpdate(
-                req.user.id, { 
-                $set: req.body
-            }, { new: true }
+                req.user.id, 
+                { $set: req.body }, 
+                { new: true }
             );
             const { password, __v, createdAt, ...others } = updatedUser._doc;
             res.status(200).json({ ...others });

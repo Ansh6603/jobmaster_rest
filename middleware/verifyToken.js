@@ -9,9 +9,9 @@ const verifyToken = (req, res, next) => {
             if (err) 
                 return res.status(403).json("Invalid token");
             req.user = user;
-            console.log(user)
+            console.log("User Verified: ", user); 
             next();
-        })
+        });
     } else {
         return res.status(401).json("You are not authenticated");
     }
@@ -22,18 +22,19 @@ const verifyAndAuthorization = (req, res, next) => {
         if (req.user.id === req.params.id) {
             next();
         } else {
-            res.status(403).json("You are restricted for performing this operation");
+            res.status(403).json("You are restricted from performing this operation");
         }
-    })
-}
+    });
+};
 
 const verifyAndAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.isAdmin) {
             next();
         } else {
-            res.status(403).json("You are restricted for performing this operation");
+            res.status(403).json("You are restricted from performing this operation");
         }
-    })
-}
-module.exports = { verifyToken, verifyAndAuthorization ,verifyAndAdmin};
+    });
+};
+
+module.exports = { verifyToken, verifyAndAuthorization, verifyAndAdmin };
