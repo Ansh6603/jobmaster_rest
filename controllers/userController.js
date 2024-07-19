@@ -7,8 +7,8 @@ module.exports = {
         }
         try {
             const updatedUser = await User.findByIdAndUpdate(
-                req.user.id, 
-                { $set: req.body }, 
+                req.user.id,
+                { $set: req.body },
                 { new: true }
             );
             const { password, __v, createdAt, ...others } = updatedUser._doc;
@@ -19,7 +19,7 @@ module.exports = {
     },
     deleteUser: async (req, res) => {
         try {
-            await User.findByIdAndDelete(req.user.id); 
+            await User.findByIdAndDelete(req.user.id);
             res.status(200).json("Account Successfully Deleted");
         } catch (error) {
             res.status(500).json(error);
