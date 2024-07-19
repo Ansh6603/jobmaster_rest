@@ -11,6 +11,7 @@ const JobSchema = new mongoose.Schema(
         requirement: { type: Array, required: true },
         imageUrl: { type: String, required: true },
         agentId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        isSuggested: { type: Boolean, default: false },
     },{timestamp:true}
 );
 module.exports = mongoose.model("Job", JobSchema)
