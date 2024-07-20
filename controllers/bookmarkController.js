@@ -3,12 +3,24 @@ const Job = require("../models/Job");
 
 module.exports = {
     createBookmark: async (req, res) => {
-        const newBook = new Bookmark(req.body);
+        const jobID = req.body.job;
         try {
-            await newBook.save();
-            res.status(201).json("BookMark Successfully Created");
-        }
-        catch(error) {
+            const job = await Job.findById(jobID);
+            if (!job) {
+                return res.status(404).json({ error: "Job Not found" });
+            }
+            const newBook = new Bookmark({
+                job: job._id,
+                userId: req.user.id,
+                title: job.title,
+                imageUrl: job.imageUrl,
+                company: job.company,
+                location: job.location
+            });
+            const savedBookMark = await newBook.save();
+            const { __v, updatedAt, ...newBookMarkInfo } = savedBookMark._doc;
+            res.status(201).json(newBookMarkInfo);
+        } catch (error) {
             res.status(500).json(error);
         }
     },
