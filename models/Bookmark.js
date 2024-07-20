@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const BookMarkSchema = new mongoose.Schema(
     {
-        job: { type: mongoose.Schema.Types.ObjectId, ref: "Job", required: true },
+        job: { type: String,required: true },
         userId: { type: String, required: true },
         title: { type: String, required: true },
         imageUrl: { type: String, required: true },
