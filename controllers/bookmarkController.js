@@ -11,11 +11,7 @@ module.exports = {
             }
             const newBook = new Bookmark({
                 job: job._id,
-                userId: req.user.id,
-                title: job.title,
-                imageUrl: job.imageUrl,
-                company: job.company,
-                location: job.location
+                userId: req.user.id
             });
             const savedBookMark = await newBook.save();
             const { __v, updatedAt, ...newBookMarkInfo } = savedBookMark._doc;
