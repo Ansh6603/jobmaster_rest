@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const JobSchema = new mongoose.Schema(
     {
         title: { type: String, required: true },
@@ -12,6 +13,12 @@ const JobSchema = new mongoose.Schema(
         imageUrl: { type: String, required: true },
         agentId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
         isSuggested: { type: Boolean, default: false },
-    },{timestamp:true}
+        minWorkExperience: { type: Number, required: true },
+        maxWorkExperience: { type: Number, required: true },
+        jobType: { type: String, required: true },
+        workingDays: { type: Number, required: true },
+    },
+    { timestamps: true }
 );
-module.exports = mongoose.model("Job", JobSchema)
+
+module.exports = mongoose.model("Job", JobSchema);
