@@ -10,12 +10,8 @@ module.exports = {
                 return res.status(404).json({ error: "Job Not found" });
             }
             const newBook = new Bookmark({
-                job: job._id,
+                job: job,
                 userId: req.user.id,
-                title: job.title,
-                imageUrl: job.imageUrl,
-                company: job.company,
-                location: job.location
             });
             const savedBookMark = await newBook.save();
             const { __v, updatedAt, ...newBookMarkInfo } = savedBookMark._doc;
