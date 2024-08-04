@@ -33,5 +33,17 @@ module.exports = {
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
+  },
+  getAppliedJobs: async (req, res) => {
+    const userId = req.user.id; 
+    try {
+      const applications = await Application.find({ userId }).populate('jobId');
+      
+      const appliedJobs = applications.map(app => app.jobId);
+
+      res.status(200).json(appliedJobs);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 };
