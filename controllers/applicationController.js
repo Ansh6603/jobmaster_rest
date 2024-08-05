@@ -3,7 +3,7 @@ const Job = require('../models/Job');
 
 module.exports = {
   applyForJob: async (req, res) => {
-    const { jobId} = req.body;
+    const { jobId } = req.body;
     const userId = req.user.id;
 
     try {
@@ -20,7 +20,7 @@ module.exports = {
       const newApplication = new Application({
         jobId,
         userId,
-        isApplied: true 
+        isApplied: true
       });
 
       const savedApplication = await newApplication.save();
@@ -30,18 +30,19 @@ module.exports = {
         application: savedApplication
       });
     } catch (error) {
+      console.error('Error in applyForJob:', error.message);
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   },
   getAppliedJobs: async (req, res) => {
-    const userId = req.user.id; 
+    const userId = req.user.id;
     try {
       const applications = await Application.find({ userId }).populate('jobId');
-      
       const appliedJobs = applications.map(app => app.jobId);
 
       res.status(200).json(appliedJobs);
     } catch (error) {
+      console.error('Error in getAppliedJobs:', error.message); 
       res.status(500).json({ error: error.message });
     }
   }
