@@ -3,7 +3,7 @@ const Job = require('../models/Job');
 
 module.exports = {
   applyForJob: async (req, res) => {
-    const { jobId, resumeUrl } = req.body;
+    const { jobId} = req.body;
     const userId = req.user.id;
 
     try {
@@ -20,7 +20,6 @@ module.exports = {
       const newApplication = new Application({
         jobId,
         userId,
-        resumeUrl,
         isApplied: true 
       });
 
